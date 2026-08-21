@@ -5,11 +5,13 @@ public class VelociraptorAnimations : MonoBehaviour
 {
     private Animator animator;
     public VelociraptorController controller;
+    private CharacterController charController;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
+        charController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -30,13 +32,22 @@ public class VelociraptorAnimations : MonoBehaviour
             {
                 animator.Play("Run");
             }
-
-            if (Gamepad.current.aButton.wasPressedThisFrame)
-            {
-                animator.Play("Jump");
-                
-            }
         }
+        if (Gamepad.current.aButton.wasPressedThisFrame && charController.isGrounded)
+        {
+            animator.SetTrigger("jump");
+        }
+
+        if (Gamepad.current.squareButton.wasPressedThisFrame)
+        {
+            animator.SetTrigger("roar");
+        }
+
+        if (Gamepad.current.rightTrigger.wasPressedThisFrame)
+        {
+            animator.SetTrigger("attack");
+        }
+
     }
 
     /*

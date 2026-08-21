@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
     private GameObject enemy;
+    public AudioSource attackSound;
     public float attackDist;
     public int damage;
     private int enemyHealth = 3;
@@ -22,12 +23,16 @@ public class Attack : MonoBehaviour
     {
         Debug.DrawRay(this.transform.position + (1f * this.transform.up), this.transform.forward, Color.red);
 
-        if (Gamepad.current.rightTrigger.wasPressedThisFrame && InView())
+        if (Gamepad.current.rightTrigger.wasPressedThisFrame)
         {
-            enemyHealth -= damage;
-            if (enemyHealth <= 0)
+            attackSound.Play();
+            if (InView())
             {
-                Destroy(enemy);
+                enemyHealth -= damage;
+                if (enemyHealth <= 0)
+                {
+                    Destroy(enemy);
+                }
             }
         }
     }

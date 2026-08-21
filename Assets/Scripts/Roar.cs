@@ -21,5 +21,4 @@ public class Roar : MonoBehaviour
             //Debug.Log(roars[randomRoar]);
         }
     }
-
 }
