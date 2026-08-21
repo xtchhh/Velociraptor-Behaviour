@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,12 +6,14 @@ public class Attack : MonoBehaviour
 {
     private GameObject enemy;
     public AudioSource attackSound;
+    public TMP_Text text;
     public float attackDist;
     public int damage;
     private int enemyHealth = 3;
 
     void Start()
     {
+        text.text = $"Enemy health is at {enemyHealth}";
         enemy = GameObject.FindWithTag("Enemy");
     }
 
@@ -29,8 +32,10 @@ public class Attack : MonoBehaviour
             if (InView())
             {
                 enemyHealth -= damage;
+                text.text = $"Enemy health is at {enemyHealth}";
                 if (enemyHealth <= 0)
                 {
+                    text.text = "Enemy is dead, object destroyed";
                     Destroy(enemy);
                 }
             }
